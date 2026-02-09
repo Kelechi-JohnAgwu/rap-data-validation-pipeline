@@ -25,7 +25,7 @@ This project demonstrates how to:
 ## Project structure
 
 ## Getting started
-Setup and usage instructions will be added as the pipeline is developed.
+Setup and usage instructions will be added as the pipeline is developed. 
 
 ## Project status
 This project is currently under development.

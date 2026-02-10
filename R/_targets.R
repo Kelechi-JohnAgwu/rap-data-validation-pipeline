@@ -4,8 +4,14 @@ library(targets)
 
 source("R/00_setup.R")
 source("R/helpers_files.R")
-source("R/01_load_raw_data.R")
 
 tar_option_set(
   packages = c("tidyverse", "here")
+)
+
+list(
+  tar_target(
+    raw_files,
+    load_raw_files()
+  )
 )

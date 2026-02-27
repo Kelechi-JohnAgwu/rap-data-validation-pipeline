@@ -1,0 +1,96 @@
+---
+title: "Data Validation Report"
+subtitle: "Scottish Pupils Administrative Dataset"
+date: "`r Sys.Date()`"
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-title: "Contents"
+    code-fold: true
+    self-contained: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+```{r setup}
+library(tidyverse)
+library(targets)
+```
+
+## Overview
+
+This report summarises the results of automated validation checks run 
+against the Scottish pupils administrative dataset. Each check identifies 
+a specific category of data quality issue.
+```{r load-results}
+tar_load(validation_results)
+tar_load(validation_summary)
+```
+
+## Summary
+```{r summary-table}
+validation_summary |>
+  mutate(
+    status = if_else(status == "PASS",
+                     "✅ PASS",
+                     "❌ FAIL")
+  ) |>
+  rename(
+    `Check`    = check_name,
+    `Status`   = status,
+    `Issues`   = n_issues
+  ) |>
+  knitr::kable()
+```
+```{r overall-status}
+n_failed <- validation_summary |> filter(status == "FAIL") |> nrow()
+n_passed <- validation_summary |> filter(status == "PASS") |> nrow()
+total    <- nrow(validation_summary)
+```
+
+Out of **`r total`** checks run, **`r n_passed`** passed and 
+**`r n_failed`** failed.
+
+## Check Details
+
+### Duplicate Pupil IDs
+```{r duplicates}
+validation_results$details[[1]]$detail |>
+  knitr::kable()
+```
+
+### Missing Required Fields
+```{r missing-summary}
+validation_results$details[[2]]$missing_by_field |>
+  knitr::kable()
+```
+
+### Invalid Gender Codes
+```{r gender}
+validation_results$details[[3]]$detail |>
+  select(pupil_id, gender) |>
+  knitr::kable()
+```
+
+### Attendance Out of Range
+```{r attendance}
+validation_results$details[[4]]$detail |>
+  select(pupil_id, attendance_rate) |>
+  knitr::kable()
+```
+
+### Stage and School Type Mismatch
+```{r stage}
+validation_results$details[[5]]$detail |>
+  select(pupil_id, school_type, stage) |>
+  knitr::kable()
+```
+
+### Future or Implausible Dates
+```{r dates}
+validation_results$details[[6]]$detail |>
+  select(pupil_id, date_of_birth, date_enrolled) |>
+  knitr::kable()
+```

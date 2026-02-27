@@ -1,80 +1,116 @@
 # Reproducible Data Validation Pipeline (R)
 
-A production-style R pipeline for validating administrative datasets, applying quality checks, and generating automated outputs (tables/reports/logs) in a reproducible way.
+A production-style R pipeline for validating administrative datasets, 
+applying quality checks, and generating automated HTML reports in a 
+reproducible way. Built following the principles of 
+[Reproducible Analytical Pipelines (RAP)](https://analysisfunction.civilservice.gov.uk/support/reproducible-analytical-pipelines/).
 
-## Why this exists
-This project demonstrates how to:
-- run repeatable validation checks on structured data
-- track issues clearly (what failed, why, where)
-- produce consistent outputs and logs for auditability
-- structure an R project like a production pipeline
+## What this pipeline does
 
-## What it does (planned)
-- Ingest: read input files from `data/raw/`
-- Validate: schema checks, missingness, ranges, duplicates, date logic
-- Transform: standardise fields and types
-- Outputs: cleaned dataset + error report + summary tables
+This pipeline ingests a structured administrative dataset, runs six 
+automated validation checks against it, and produces a clean HTML 
+report summarising all data quality issues found — all triggered by 
+a single command.
 
-## Tech stack (planned)
-- `targets` for orchestration
-- `fs` / `here` for file management
-- `validate` or custom rules for checks
-- `openxlsx` for Excel outputs (optional)
-- `testthat` for unit tests
+The six validation checks are:
 
-## Project structure
-├─ _targets.R # Pipeline definition and dependency graph
-├─ R/
-│ ├─ 00_setup.R # Project setup (packages, project root)
-│ ├─ helpers_files.R # Reusable helper functions
-│ └─ 01_load_raw_data.R # Interactive workflow script (optional)
-│
-├─ data/
-│ ├─ raw/ # Raw input data (e.g. Excel files)
-│ ├─ interim/ # Intermediate data (if required)
-│ └─ processed/ # Processed datasets created by the pipeline
-│
-├─ reports/ # Final outputs and summary files
-├─ docs/ # Project documentation
-├─ README.md
-├─ .gitignore
-└─ LICENSE
+- **Duplicate IDs** — detects records sharing the same identifier
+- **Missing values** — flags nulls across required fields
+- **Invalid gender codes** — validates against a configurable set of accepted codes
+- **Attendance out of range** — catches values below 0 or above 100
+- **Stage and school type mismatch** — cross-field validation catching logical inconsistencies
+- **Future or implausible dates** — identifies dates of birth or enrolment that are in the future
 
-## Getting started
-1. Open the project in RStudio using the `.Rproj` file.
-2. Ensure required packages are installed.
-3. Run the pipeline from the project root:
-
-```r
-targets::tar_make()
-
-To inspect intermediate outputs:
-
-targets::tar_read(students_clean)
-
-```markdown
 ## How the pipeline works
 
-The pipeline is defined in `_targets.R` and consists of the following steps:
+The pipeline is defined in `_targets.R` and runs five steps in order:
 
-1. **raw_files**  
-   Detects and tracks files placed in `data/raw/`.
+1. **raw_file** — tracks the input Excel file for changes
+2. **df** — reads the raw dataset into R
+3. **validation_results** — runs all six checks and collects results
+4. **validation_summary** — extracts a summary table of PASS/FAIL status per check
+5. **validation_report** — renders an automated HTML report from the results
 
-2. **students**  
-   Reads the `students.xlsx` file into R as a tibble.
+The `targets` package ensures only steps affected by changes in the 
+input data are re-run, making the pipeline efficient and auditable.
 
-3. **students_clean**  
-   Performs basic data cleaning (e.g. standardising column names).
+## Getting started
 
-4. **students_csv**  
-   Writes the cleaned dataset to `data/processed/students_clean.csv`.
+**1. Clone the repository**
+```bash
+git clone https://github.com/Kelechi-JohnAgwu/rap-data-validation-pipeline.git
+```
 
-5. **students_summary / students_summary_csv**  
-   Produces a simple summary and writes it to `reports/students_summary.csv`.
+**2. Restore the package environment**
+```r
+renv::restore()
+```
 
-The `targets` package ensures that only steps affected by changes in the input
-data are re-run.
- 
+**3. Add your dataset**
 
-## Project status
-This project is currently under development.
+Place your Excel file in `data/raw/`. The pipeline expects the following fields:
+
+| Field | Description |
+|---|---|
+| `pupil_id` | Unique record identifier |
+| `date_of_birth` | Date of birth (YYYY-MM-DD) |
+| `gender` | Gender code (M / F / X) |
+| `ethnicity` | Ethnicity category |
+| `local_authority` | Local authority name |
+| `school_type` | Primary / Secondary / Special |
+| `stage` | Year group (P1–P7 or S1–S6) |
+| `date_enrolled` | Enrolment date (YYYY-MM-DD) |
+| `attendance_rate` | Attendance percentage (0–100) |
+| `fsm_eligible` | Free school meal eligibility (Y / N) |
+
+**4. Run the pipeline**
+```r
+targets::tar_make()
+```
+
+**5. View the report**
+
+Open `reports/validation_report.html` in your browser.
+
+## Project structure
+```
+├── _targets.R                    # Pipeline definition
+├── renv.lock                     # Package version lockfile
+├── R/
+│   ├── config.R                  # Centralised configuration
+│   ├── validate_duplicates.R     # Duplicate ID check
+│   ├── validate_missing.R        # Missing values check
+│   ├── validate_gender_codes.R   # Invalid gender codes check
+│   ├── validate_attendance.R     # Attendance range check
+│   ├── validate_stage_mismatch.R # Stage/school type mismatch check
+│   ├── validate_dates.R          # Future/implausible date check
+│   └── run_all_checks.R          # Orchestrates all checks
+├── data/
+│   ├── raw/                      # Input data (Excel files)
+│   ├── interim/                  # Intermediate outputs
+│   └── processed/                # Processed datasets
+├── reports/
+│   ├── validation_report.qmd     # Quarto report template
+│   └── validation_report.html    # Rendered HTML report
+└── docs/                         # Additional documentation
+```
+
+## Tech stack
+
+- [`targets`](https://docs.ropensci.org/targets/) — pipeline orchestration
+- [`tarchetypes`](https://docs.ropensci.org/tarchetypes/) — Quarto integration with targets
+- [`tidyverse`](https://www.tidyverse.org/) — data manipulation
+- [`rlang`](https://rlang.r-lib.org/) — tidy evaluation for reusable functions
+- [`quarto`](https://quarto.org/) — automated report generation
+- [`renv`](https://rstudio.github.io/renv/) — package reproducibility
+
+## Reusability
+
+Each validation function is designed to be dataset-agnostic. Column 
+names are passed as arguments rather than hardcoded, so the functions 
+can be applied to any structured administrative dataset by updating 
+`R/config.R` and `R/run_all_checks.R`.
+
+## License
+
+MIT

@@ -1,7 +1,7 @@
-
 # _targets.R
 
 library(targets)
+library(tarchetypes)
 library(tidyverse)
 library(readxl)
 
@@ -34,6 +34,12 @@ list(
   tar_target(
     validation_summary,
     validation_results$summary
+  ),
+  
+  # Step 5 — render the validation report
+  tar_quarto(
+    validation_report,
+    path = "reports/validation_report.qmd"
   )
   
 )

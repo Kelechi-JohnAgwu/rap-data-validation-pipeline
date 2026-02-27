@@ -1,19 +1,18 @@
 # R/validate_duplicates.R
-# Checks for duplicate pupil_id values in the dataset
 
-check_duplicate_ids <- function(df) {
+check_duplicate_ids <- function(df, id_col) {
   
   duplicates <- df |>
-    dplyr::group_by(pupil_id) |>
-    dplyr::filter(dplyr::n() > 1) |>
-    dplyr::arrange(pupil_id) |>
-    dplyr::ungroup()
+    group_by({{id_col}}) |>
+    filter(n() > 1) |>
+    arrange({{id_col}}) |>
+    ungroup()
   
   list(
     check_name   = "duplicate_pupil_ids",
-    status       = ifelse(nrow(duplicates) == 0, "PASS", "FAIL"),
+    status       = if_else(nrow(duplicates) == 0, "PASS", "FAIL"),
     n_issues     = nrow(duplicates),
-    affected_ids = unique(duplicates$pupil_id),
+    affected_ids = duplicates |> distinct({{id_col}}) |> pull(1),
     detail       = duplicates
   )
   

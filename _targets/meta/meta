@@ -1,6 +1,9 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-raw_file|stem|2466549fca5afb4f|df666d343d261ab9|2c530c1562a7fbd1|2084871332|data/raw/pupils.xlsx|t20511.9231011448s|s22223b|22223|file|local|vector|||0||
-df|stem|f319f1720361ebb2|7ed9c239965a1dff|c027935c00f7162e|1719518045||t20511.9620378936s|s6417b|6417|rds|local|vector|||0.02||
+raw_file|stem|2466549fca5afb4f|df666d343d261ab9|2c530c1562a7fbd1|2084871332|data/raw/pupils.xlsx|t20511.9231011448s|s22223b|22223|file|local|vector|||0.01||
+df|stem|f319f1720361ebb2|7ed9c239965a1dff|c027935c00f7162e|1719518045||t20517.8104034014s|s6417b|6417|rds|local|vector|||0.02||
+validation_results|stem|66384def576624bd|000887e81285eb46|f39f9cbb9249412a|-442307386||t20517.810407796s|s2381b|2381|rds|local|vector|||0.25||
+validation_summary|stem|2a34bfc1ce71bf2d|7c0e4e6c2e41808e|e531efeb8b1c0080|1243306920||t20517.8104082088s|s282b|282|rds|local|vector|||0||
+validation_report|stem|29862292f7def4a6|4e93208e7d980bc5|ef22e2d905ec3218|1324813606|reports/validation_report.html*reports/validation_report.qmd|t20517.8105384114s|s1931102b|1931102|file|local|vector|||11.31|package 'quarto' was built under R version 4.5.2|
 check_attendance_range|function|c3b260f429eb920a
 check_date_validity|function|def40801b304bcc1
 check_duplicate_ids|function|38ef984ff6f1a933
@@ -12,6 +15,7 @@ check_multiple_accepted|function|578167288367a2a3
 check_notoffrd_consistency|function|07dffe9e75fa7173
 run_all_checks|function|b332db8d2a89a4f5
 run_temp_accom_checks|function|212e2f220b7f2385
-validation_results|stem|66384def576624bd|000887e81285eb46|f39f9cbb9249412a|-442307386||t20517.8042633251s|s2381b|2381|rds|local|vector|||0.16||
-validation_summary|stem|2a34bfc1ce71bf2d|7c0e4e6c2e41808e|e531efeb8b1c0080|1243306920||t20517.8042648801s|s282b|282|rds|local|vector|||0||
-validation_report|stem|29862292f7def4a6|4e93208e7d980bc5|ef22e2d905ec3218|1324813606|reports/validation_report.html*reports/validation_report.qmd|t20517.804449701s|s1931102b|1931102|file|local|vector|||15.96|package 'quarto' was built under R version 4.5.2|
+raw_file_temp|stem|a6ae82098a7b70b0|9bde3c76628a82fd|2c530c1562a7fbd1|1230074565|data/raw/temp_accom_v2.xlsx|t20517.782578775s|s22210b|22210|file|local|vector|||0||
+df_temp|stem|e921f029683a2db6|685dc2bc827a8696|29c5714f16bce5e2|933986054||t20517.8151094987s|s5324b|5324|rds|local|vector|||0.03||
+validation_results_temp|stem|3ef49fa61f4435ce|d63f8bad4685196d|aa2265fc18baf87d|-150336811||t20517.8151131524s|s2182b|2182|rds|local|vector|||0.18||
+validation_summary_temp|stem|1588a01340402442|4231f8b391aa4f87|87e68d8a2984f1af|434798029||t20517.8151134828s|s273b|273|rds|local|vector|||0||

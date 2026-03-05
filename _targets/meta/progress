@@ -1,0 +1,14 @@
+name|type|parent|branches|progress
+raw_file_temp|stem|raw_file_temp|0|dispatched
+raw_file_temp|stem|raw_file_temp|0|completed
+raw_file|stem|raw_file|0|skipped
+df_temp|stem|df_temp|0|dispatched
+df_temp|stem|df_temp|0|completed
+df|stem|df|0|skipped
+validation_results_temp|stem|validation_results_temp|0|dispatched
+validation_results_temp|stem|validation_results_temp|0|completed
+validation_results|stem|validation_results|0|skipped
+validation_summary_temp|stem|validation_summary_temp|0|dispatched
+validation_summary_temp|stem|validation_summary_temp|0|completed
+validation_summary|stem|validation_summary|0|skipped
+validation_report|stem|validation_report|0|skipped

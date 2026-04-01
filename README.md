@@ -5,6 +5,10 @@ quality checks, and generating automated HTML reports in a reproducible way.
 Built following the principles of 
 [Reproducible Analytical Pipelines (RAP)](https://analysisfunction.civilservice.gov.uk/support/reproducible-analytical-pipelines/).
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Kelechi-JohnAgwu/rap-data-validation-pipeline/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Kelechi-JohnAgwu/rap-data-validation-pipeline/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 ## Overview
 
 This pipeline provides a reusable, modular framework for validating structured 

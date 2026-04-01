@@ -1,0 +1,12 @@
+Package: rapvalidation
+Title: Reproducible Data Validation Pipeline for Public Sector Data
+Version: 0.0.0.9000
+Authors@R: 
+    person("Kelechi", "John-Agwu", , "kelechiagwu16@gmail.com", role = c("aut", "cre"))
+Description: A production-style R pipeline for validating administrative
+    datasets, applying quality checks, and generating automated outputs in
+    a reproducible way.
+License: MIT
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3

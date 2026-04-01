@@ -1,7 +1,6 @@
 # tests/testthat/test_validate_missing.R
 
 library(testthat)
-library(tidyverse)
 library(here)
 
 source(here("R/validate_missing.R"))

@@ -3,7 +3,6 @@
 # tests/testthat/test_validate_duplicates.R
 
 library(testthat)
-library(tidyverse)
 library(here)
 
 source(here("R/validate_duplicates.R"))

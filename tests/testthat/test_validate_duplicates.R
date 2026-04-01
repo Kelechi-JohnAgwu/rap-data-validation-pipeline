@@ -3,9 +3,7 @@
 # tests/testthat/test_validate_duplicates.R
 
 library(testthat)
-library(here)
-
-source(here("R/validate_duplicates.R"))
+source("R/validate_duplicates.R")
 
 # --- Test data ---
 

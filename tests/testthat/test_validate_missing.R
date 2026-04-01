@@ -1,9 +1,7 @@
 # tests/testthat/test_validate_missing.R
 
 library(testthat)
-library(here)
-
-source(here("R/validate_missing.R"))
+source("R/validate_missing.R")
 
 # --- Test data ---
 

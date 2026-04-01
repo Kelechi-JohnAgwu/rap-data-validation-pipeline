@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(rap-data-validation-pipeline)
+library(rapvalidation)
 
-test_check("rap-data-validation-pipeline")
+test_check("rapvalidation")

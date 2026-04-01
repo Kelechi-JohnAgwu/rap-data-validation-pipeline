@@ -19,4 +19,5 @@ Imports:
     readxl,
     tarchetypes,
     targets,
+    tibble,
     tidyr

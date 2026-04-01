@@ -27,6 +27,7 @@ jobs:
             any::readxl
             any::targets
             any::tarchetypes
+            any::tibble
 
       - name: Run tests
         run: Rscript -e "testthat::test_dir('tests/testthat')"

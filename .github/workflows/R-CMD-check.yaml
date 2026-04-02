@@ -28,6 +28,7 @@ jobs:
             any::targets
             any::tarchetypes
             any::tibble
+            any::rprojroot
 
       - name: Run tests
         run: Rscript -e "testthat::test_dir('tests/testthat')"

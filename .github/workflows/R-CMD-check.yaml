@@ -23,6 +23,7 @@ jobs:
             any::testthat
             any::dplyr
             any::purrr
+            any::tidyr
             any::readr
             any::readxl
             any::targets

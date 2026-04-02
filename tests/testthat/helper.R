@@ -1,7 +1,7 @@
 library(dplyr)
 library(tibble)
 library(purrr)
-
+library(tidyr)
 
 # Load validate functions
 root <- rprojroot::find_root(rprojroot::has_file("DESCRIPTION"))
